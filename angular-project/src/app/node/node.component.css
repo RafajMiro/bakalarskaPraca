@@ -1,0 +1,24 @@
+li {
+    list-style-type: none;
+    margin: 5px 0;
+}
+  
+span {
+    cursor: pointer;
+    color: #fff;
+    padding: 8px;
+    border-radius: 15px;
+    font-size: 15px;
+    background-color: #abb8b3;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+  
+span:hover {
+    background-color: #758178;
+}
+  
+ul {
+    padding-left: 20px;
+}
+  

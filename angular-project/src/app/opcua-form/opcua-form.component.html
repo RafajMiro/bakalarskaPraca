@@ -1,0 +1,13 @@
+<div>
+    <div class="opcua-form">
+        <input type="text" [(ngModel)]="endpoint" placeholder="Endpoint URL" />
+        <button (click)="connectToServer()">Connect</button>
+    </div>
+    <div class="tree-hierarchy">
+        <ul>
+            <ng-container *ngFor="let node of nodes">
+                <app-node  [node]="node" (toggle)="onNodeToggle($event)"></app-node>
+            </ng-container>
+        </ul>
+    </div>
+</div>

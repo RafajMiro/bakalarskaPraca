@@ -1,0 +1,47 @@
+.opcua-form input[type="text"] {
+    width: calc(100% - 120px);
+    padding: 8px;
+    font-size: 15px; 
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.opcua-form input:focus{
+    border-color: #95a399;
+    outline: none;
+}
+  
+.opcua-form button {
+    padding: 10px;
+    font-size: 15px; 
+    border: none;
+    background-color: #95a399;
+    color: #fff;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+  
+.opcua-form button:hover {
+    background-color: #525856;
+}
+  
+.tree-hierarchy{
+    margin-top: 20px;
+    padding: 20px;
+    height: 68vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.tree-hierarchy ul {
+    list-style-type:none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+  

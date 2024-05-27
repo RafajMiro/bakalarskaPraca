@@ -1,0 +1,213 @@
+/* app.component.css */
+.main-layout {
+    display: flex;
+    height: 98vh;
+}
+  
+.main-layout h2 {
+    text-align: center;
+    margin: 0;
+    padding: 10px 0;
+}
+  
+.left-panel, .center-panel, .right-panel {
+    padding: 10px;
+    box-sizing: border-box;
+}
+  
+.left-panel {
+    width: 20%;
+    background-color: #abb8b3;
+    border: 2px solid #758178;
+    overflow-y: auto;
+}
+
+.left-panel .opc-ua-form{
+    margin-top: 5%;
+    margin: 5px;
+    padding: 20px;
+    height: 89vh;
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    display: block;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.left-panel h2{
+    margin: 0 0 10px 0;
+    font-size: 24px;
+    color: #333;
+}
+  
+.center-panel {
+    flex-grow: 1;
+    background-color: #cfe0da;
+    border: 2px solid #758178;
+    overflow-y: auto;
+}
+
+.center-panel h2 {
+    margin-top: 3%;
+    margin-bottom: 5%;
+    font-size: 34px;
+    color: #333;
+}
+  
+.right-panel {
+    width: 20%;
+    background-color: #abb8b3;
+    border: 2px solid #758178;
+    overflow-y: auto;
+}
+  
+.submodel-container {
+    border: 2px solid #444;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 5%;
+    margin-top: 5%;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+  
+.elements-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+  
+.element-column {
+    flex: 1;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    word-break: break-word;
+}
+
+.upper-panel {
+    margin: 5px;
+    margin-bottom: 10px;
+    padding: 20px;
+    height: 41.5vh;
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+  
+.upper-panel h2, .lower-panel h2{
+    margin: 0 0 10px 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.lower-panel {
+    margin: 5px;
+    padding: 20px;
+    height: 41.5vh;
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.lower-panel ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.lower-panel li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.lower-panel li:last-child {
+    border-bottom: none;
+}
+
+.lower-panel button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.lower-panel button:hover {
+    background-color: #0056b3;
+}
+
+.lower-panel button:focus {
+    outline: none;
+}
+
+.lower-panel button:active {
+    background-color: #004085;
+}
+
+.lower-panel button:first-of-type {
+    background-color: #abb8b3;
+}
+
+.lower-panel button:first-of-type:hover {
+    background-color: #758178;
+}
+
+.lower-panel .save-button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: auto;
+}
+
+.lower-panel .save-button-container button {
+    margin: 0;
+    padding: 10px 25px; 
+    font-size: 15px; 
+    width: 70%; 
+    max-width: 300px; 
+    background-color: #758178;
+}
+
+.save-button-container button:first-of-type:hover {
+    background-color: #525856;
+}
+
+.lower-panel .save-button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: auto;
+}
+  
+.list{
+    overflow-y: auto;
+    overflow-x: auto;
+    margin-bottom: 30px; 
+    padding-right: 15px;
+}

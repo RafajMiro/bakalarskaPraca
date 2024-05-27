@@ -1,0 +1,8 @@
+<li draggable="true" (dragstart)="onDragStart($event)">
+    <span (click)="expand($event)">{{ node.displayName }} ({{ node.nodeClass }})</span>
+    <ul *ngIf="node.expanded">
+        <ng-container *ngFor="let child of node.children">
+          <app-node [node]="child" (toggle)="toggle.emit($event)"></app-node>
+        </ng-container>
+    </ul>
+  </li>

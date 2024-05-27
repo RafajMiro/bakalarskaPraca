@@ -1,0 +1,58 @@
+<!-- src/app/app.component.html -->
+<div class="main-layout">
+  <div class="left-panel">
+    <div class="opc-ua-form">
+      <h2>OPC UA Address Space</h2>
+      <app-opcua-form></app-opcua-form>
+    </div>
+  </div>
+  <div class="center-panel"
+    (drop)="onDropToWorkbench($event)"
+    (dragover)="onDragOver($event)">
+    <h2>Work Bench</h2>
+    <div *ngFor="let submodelData of droppedSubmodelData" class="submodel-container"
+      (drop)="onDropToSubmodel($event, submodelData.id)"
+      (dragover)="onDragOver($event)">
+      <h3>{{ submodelData.idShort }}</h3>
+      <div class="elements-container">
+        <div *ngFor="let element of submodelData.submodelElements" class="element-column">
+          <h4>{{ element.idShort }}</h4>
+          <div *ngFor="let value of element.value">
+            {{ value.idShort }}: {{ value.value[0].value }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="right-panel">
+    <div class="upper-panel">    
+      <h2>AAS</h2>
+      <app-submodel-list></app-submodel-list>
+    </div>
+    <div class="lower-panel">
+      <h2>Workbench menu</h2>
+      <div *ngIf="workbenches.length > 0" class="list">
+        <ul>
+          <li *ngFor="let workbench of workbenches">
+            {{ workbench.name }}
+            <button (click)="loadWorkbench(workbench.id)">Load</button>
+            <button (click)="deleteWorkbench(workbench.id)">Delete</button>
+          </li>
+        </ul>
+      </div>
+      <div class="save-button-container">
+        <button (click)="openSaveDialog()">Save the workbench</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<dialog id="saveDialog">
+  <form method="dialog">
+    <p><label>Name: <input type="text" [(ngModel)]="workbenchName" name="workbenchName"></label></p>
+    <menu>
+      <button (click)="saveWorkbench()">Save</button>
+      <button (click)="closeSaveDialog()">Cancel</button>
+    </menu>
+  </form>
+</dialog>

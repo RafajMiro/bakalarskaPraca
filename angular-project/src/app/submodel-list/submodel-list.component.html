@@ -1,0 +1,5 @@
+<div *ngFor="let submodel of submodels">
+    <div class="submodel" draggable="true" (dragstart)="onDragStart($event, submodel)">
+      {{ submodel.idShort }}
+    </div>
+</div>

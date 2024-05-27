@@ -1,0 +1,13 @@
+.submodel {
+    padding: 10px;
+    margin: 10px;
+    background-color: #abb8b3;
+    color: #fff;
+    border-radius: 15px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.submodel:hover {
+    background-color: #758178;
+}
