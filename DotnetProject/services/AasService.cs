@@ -12,15 +12,17 @@ namespace AasApi.Services
     public class AasService : IAasService
     {
         private readonly HttpClient _httpClient;
+        private readonly string _aasServiceUrl;
 
-        public AasService(HttpClient httpClient)
+        public AasService(HttpClient httpClient,IConfiguration configuration)
         {
             _httpClient = httpClient;
+            _aasServiceUrl = configuration["AAS_SERVICE_URL"] ?? "http://localhost:8081";
         }
 
         public async Task<AasListResponse> GetAllAasDataAsync()
         {
-            var response = await _httpClient.GetAsync("http://localhost:8081/shells");
+            var response = await _httpClient.GetAsync($"{_aasServiceUrl}/shells");
             response.EnsureSuccessStatusCode();
 
             var responseContent = await response.Content.ReadAsStringAsync();
@@ -38,7 +40,7 @@ namespace AasApi.Services
 
         public async Task<AasData> GetAasDataAsync(string shellId)
         {
-            var response = await _httpClient.GetAsync($"http://localhost:8081/shells/{shellId}");
+            var response = await _httpClient.GetAsync($"{_aasServiceUrl}/shells/{shellId}");
             response.EnsureSuccessStatusCode();
 
             var responseContent = await response.Content.ReadAsStringAsync();
@@ -57,7 +59,7 @@ namespace AasApi.Services
 
         public async Task<SubmodelData> GetSubmodelDataAsync(string submodelId)
         {
-            var response = await _httpClient.GetAsync($"http://localhost:8081/submodels/{submodelId}");
+            var response = await _httpClient.GetAsync($"{_aasServiceUrl}/submodels/{submodelId}");
             response.EnsureSuccessStatusCode();
 
             var responseContent = await response.Content.ReadAsStringAsync();
@@ -76,9 +78,8 @@ namespace AasApi.Services
 
         public async Task<bool> UpdateSubmodelDataAsync(string submodelId, SubmodelData submodelData)
         {
-            Console.WriteLine("Im heeeeerrreeeeeee");
             var content = new StringContent(JsonSerializer.Serialize(submodelData), Encoding.UTF8, "application/json");
-            var response = await _httpClient.PutAsync($"http://localhost:8081/submodels/{submodelId}", content);
+            var response = await _httpClient.PutAsync($"{_aasServiceUrl}/submodels/{submodelId}", content);
             return response.IsSuccessStatusCode;
         }
     }

@@ -1,4 +1,3 @@
-// app.component.ts 
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
@@ -76,7 +75,6 @@ export class AppComponent {
         const updatedSubmodel = this.constructUpdatedSubmodel(submodelData, node);
         console.log(submodelData);
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        const jsonBody = JSON.stringify(updatedSubmodel);
         this.http.put(`http://localhost:8081/submodels/${submodelId}`, updatedSubmodel, { headers }).subscribe(
           () => {
             console.log('Submodel updated successfully');

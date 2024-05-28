@@ -1,24 +1,29 @@
 version: '3.8'
 
 services:
-  dotnet-api:
+  backend:
+    image: backend
     build:
       context: ./DotnetProject
       dockerfile: Dockerfile
     ports:
       - "5000:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - AAS_SERVICE_URL=http://host.docker.internal:8081
     networks:
       - my-network
 
-  
-  # angular-app:
-  #   build:
-  #     context: ./angular-project
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "4200:4200"
-  #   networks:
-  #     - my-network
+  angular-app:
+    build:
+      context: ./angular-project
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    networks:
+      - my-network
+    depends_on:
+      - backend
 
 networks:
   my-network:

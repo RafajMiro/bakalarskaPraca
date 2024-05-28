@@ -1,4 +1,5 @@
-﻿using OpcUaApi.Services;
+﻿// Program.cs
+using OpcUaApi.Services;
 using AasApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<OpcUaService>();
 builder.Services.AddTransient<IAasService, AasService>(); 
 builder.Services.AddSingleton<IWorkbenchService, WorkbenchService>();
+
+builder.WebHost.UseUrls("http://*:5000");
 
 var app = builder.Build();
 
