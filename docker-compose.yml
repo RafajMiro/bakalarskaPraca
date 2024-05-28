@@ -12,7 +12,9 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - AAS_SERVICE_URL=http://host.docker.internal:8081
     networks:
-      - my-network
+      - my_custom_network
+    extra_hosts:
+      - "HostOfYourOPCUADevice:IPAddressOfOPCAUYourDevice"
 
   angular-app:
     build:
@@ -21,10 +23,10 @@ services:
     ports:
       - "4200:4200"
     networks:
-      - my-network
+      - my_custom_network
     depends_on:
       - backend
 
 networks:
-  my-network:
-    driver: bridge
+  my_custom_network:
+    external: true 
