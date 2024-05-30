@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -16,6 +16,8 @@ export class OpcuaFormComponent {
   message: string = '';
   nodes: NodeData[] = [];
 
+  @Output() endpointChange = new EventEmitter<string>();
+
   constructor(private http: HttpClient) {}
 
   connectToServer() {
@@ -23,6 +25,7 @@ export class OpcuaFormComponent {
     this.http.post(connectUrl, { endpoint: this.endpoint }).subscribe(
       (response: any) => {
         this.message = response.message;
+        this.endpointChange.emit(this.endpoint);
         this.browseServer();
       },
       (error) => {

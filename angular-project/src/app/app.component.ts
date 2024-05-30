@@ -22,10 +22,16 @@ export class AppComponent {
   workbenchName: string = '';
   workbenches: Workbench[] = [];
 
+  endpoint: string = '';
+
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
     this.loadWorkbenches();
+  }
+
+  onEndpointChange(newEndpoint: string) {
+    this.endpoint = newEndpoint;
   }
 
   onDragOver(event: DragEvent) {
@@ -57,22 +63,55 @@ export class AppComponent {
     );
   }
 
-  onDropToSubmodel(event: DragEvent, submodelId: string) {
+  onDropToSubmodel(event: DragEvent, submodelId: string, elementIdShort: string) {
     event.preventDefault();
     const data = event.dataTransfer?.getData('application/json');
     const type = event.dataTransfer?.getData('type');
-
+  
     if (data && type === 'node') {
       const node = JSON.parse(data) as NodeData;
       console.log(node);
-      this.updateSubmodel(btoa(submodelId), node);
+      this.updateSubmodel(btoa(submodelId), node, elementIdShort, this.endpoint);
     }
   }
-
-  updateSubmodel(submodelId: string, node: NodeData) {
+  
+  constructUpdatedSubmodel(submodelData: SubmodelData, node: NodeData, targetElementIdShort: string, endpoint: string): SubmodelData {
+    const updatedSubmodel = { ...submodelData };
+  
+    updatedSubmodel.submodelElements.forEach(element => {
+      if (element.idShort === targetElementIdShort) {
+        const newElement = {
+          modelType: "SubmodelElementCollection",
+          idShort: node.displayName,
+          value: [
+            {
+              modelType: "Property",
+              value: node.nodeId,
+              valueType: "xs:string",
+              idShort: "NodeName"
+            },
+            {
+              modelType: "Property",
+              value: endpoint,
+              valueType: "xs:string",
+              idShort: "Endpoint"
+            }
+          ]
+        };
+        if (!Array.isArray(element.value)) {
+          element.value = [];
+        }
+        element.value.push(newElement);
+      }
+    });
+  
+    return updatedSubmodel;
+  }
+  
+  updateSubmodel(submodelId: string, node: NodeData, targetElementIdShort: string, endpoint: string) {
     this.http.get<SubmodelData>(`http://localhost:5000/api/aas/submodels/${submodelId}`).subscribe(
       submodelData => {
-        const updatedSubmodel = this.constructUpdatedSubmodel(submodelData, node);
+        const updatedSubmodel = this.constructUpdatedSubmodel(submodelData, node, targetElementIdShort, endpoint);
         console.log(submodelData);
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         this.http.put(`http://localhost:8081/submodels/${submodelId}`, updatedSubmodel, { headers }).subscribe(
@@ -90,7 +129,7 @@ export class AppComponent {
       }
     );
   }
-
+  
   updateDisplayedSubmodel(submodelId: string) {
     this.http.get<SubmodelData>(`http://localhost:5000/api/aas/submodels/${submodelId}`).subscribe(
       updatedData => {
@@ -105,35 +144,8 @@ export class AppComponent {
         console.error('Failed to fetch updated submodel data', error);
       }
     );
-  }  
-
-  constructUpdatedSubmodel(submodelData: SubmodelData, node: NodeData): SubmodelData {
-    const updatedSubmodel = { ...submodelData };
-  
-    updatedSubmodel.submodelElements.forEach(element => {
-      if (element.idShort === 'INPUTS' || element.idShort === 'OUTPUTS' || element.idShort === 'STATES') {
-        element.value.forEach(subElement => {
-          if (element.idShort === 'INPUTS' || element.idShort === 'OUTPUTS') {
-            subElement.value.forEach(property => {
-              if (property.idShort === 'NodeID') {
-                property.value = node.nodeId;
-              }
-            });
-          }
-          if (element.idShort === 'STATES') {
-            subElement.value.forEach(property => {
-              if (property.idShort === 'NodeName') {
-                property.value = node.displayName;
-              }
-            });
-          }
-        });
-      }
-    });
-  
-    return updatedSubmodel;
   }
-
+  
   openSaveDialog() {
     const saveDialog = document.getElementById('saveDialog') as HTMLDialogElement;
     if (saveDialog) {

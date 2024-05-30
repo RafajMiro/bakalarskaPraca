@@ -31,7 +31,9 @@ export class NodeComponent {
 
   onDragStart(event: DragEvent) {
     event.stopPropagation();
-    event.dataTransfer?.setData('type', 'node');
-    event.dataTransfer?.setData('application/json', JSON.stringify(this.node));
+    if (this.node.nodeClass == "Variable"){
+      event.dataTransfer?.setData('type', 'node');
+      event.dataTransfer?.setData('application/json', JSON.stringify(this.node));
+    }
   }
 }

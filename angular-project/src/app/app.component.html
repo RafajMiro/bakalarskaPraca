@@ -2,22 +2,22 @@
   <div class="left-panel">
     <div class="opc-ua-form">
       <h2>OPC UA Address Space</h2>
-      <app-opcua-form></app-opcua-form>
+      <app-opcua-form (endpointChange)="onEndpointChange($event)"></app-opcua-form>
     </div>
   </div>
-  <div class="center-panel"
-    (drop)="onDropToWorkbench($event)"
-    (dragover)="onDragOver($event)">
+  <div class="center-panel" (drop)="onDropToWorkbench($event)" (dragover)="onDragOver($event)">
     <h2>Work Bench</h2>
-    <div *ngFor="let submodelData of droppedSubmodelData" class="submodel-container"
-      (drop)="onDropToSubmodel($event, submodelData.id)"
-      (dragover)="onDragOver($event)">
+    <div *ngFor="let submodelData of droppedSubmodelData" class="submodel-container">
       <h3>{{ submodelData.idShort }}</h3>
       <div class="elements-container">
-        <div *ngFor="let element of submodelData.submodelElements" class="element-column">
+        <div *ngFor="let element of submodelData.submodelElements" class="element-column"
+          (drop)="onDropToSubmodel($event, submodelData.id, element.idShort)"
+          (dragover)="onDragOver($event)">
           <h4>{{ element.idShort }}</h4>
-          <div *ngFor="let value of element.value">
-            {{ value.idShort }}: {{ value.value[0].value }}
+          <div *ngFor="let value of element.value" class="submodels">
+            BrowseName: {{ value.idShort }} 
+            <br> NodeId: {{ value.value[0].value }}
+            <br> Server: {{ value.value[1].value }}
           </div>
         </div>
       </div>
