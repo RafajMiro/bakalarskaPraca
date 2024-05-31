@@ -105,6 +105,12 @@
     overflow-y: auto;
     overflow-x: auto;
 }
+
+.aas-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
   
 .upper-panel h2, .lower-panel h2{
     margin: 0 0 10px 0;
